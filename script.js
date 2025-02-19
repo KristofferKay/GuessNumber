@@ -15,38 +15,40 @@ console.log(pbAgain);
 
 const pbGuess = document.querySelector(".check");
 const highScoreDoc = document.querySelector(".highscore");
-let highScore = highScoreDoc.innerHTML;
-console.log(highScore);
+console.log(highScoreDoc);
 
+let highScore = 0;
+let score = 20;
 let randomNumber = 0;
-let score = lblScore.innerHTML - 1;
 
 function generatedNumber() {
   randomNumber = Math.trunc(Math.random() * 20) + 1;
   lblNumber.textContent = randomNumber;
   console.log(randomNumber);
-  if (score > highScore) {
-    highScore = score;
-  }
+  score = 20;
+  lblScore.textContent = score;
 }
 
 pbAgain.addEventListener("click", generatedNumber);
 
 function guessNumber() {
   let clientGuess = inpGuess.value;
-  let score = lblScore.innerHTML - 1;
-  console.log(clientGuess);
-
   if (clientGuess == randomNumber) {
     lblMessage.textContent = "du har vundet";
     lblNumber.textContent = randomNumber;
+    if (score > highScore) {
+      highScore++;
+      highScoreDoc.textContent = highScore;
+    }
   } else {
-    lblMessage.textContent = "prøv igen";
-    if (score < 0) {
-      lblMessage.textContent =
-        "Du har prøvet for mange gange, din score er nu på 0";
-      score = 0;
-    } else lblScore.textContent = score;
+    lblMessage.textContent =
+      clientGuess > randomNumber ? "For højt" : "For lavt";
+    score--;
+    lblScore.textContent = score;
+    if (score <= 0) {
+      lblMessage.textContent = "Du har tabt prøv igen";
+      lblScore.textContent = score;
+    }
 
     console.log("try again");
   }
