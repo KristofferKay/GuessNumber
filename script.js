@@ -20,6 +20,7 @@ console.log(highScoreDoc);
 let highScore = 0;
 let score = 20;
 let randomNumber = 0;
+const sound = new Audio("./Battle Crowd Celebrate Stutter.mp3");
 
 function generatedNumber() {
   randomNumber = Math.trunc(Math.random() * 20) + 1;
@@ -35,6 +36,12 @@ function guessNumber() {
   let clientGuess = inpGuess.value;
   if (clientGuess == randomNumber) {
     lblMessage.textContent = "du har vundet";
+
+    sound.play();
+    setTimeout(() => {
+      sound.pause();
+    }, "2000");
+
     lblNumber.textContent = randomNumber;
     if (score > highScore) {
       highScore++;
